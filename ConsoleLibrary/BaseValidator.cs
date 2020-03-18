@@ -6,91 +6,96 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleLibrary
+namespace ValidatorLibrary
 {
-    abstract public class Validator
+    public static class BaseValidator
     {
-        private ILog log;
+        private static ILog log;
 
-        public Validator(ILog logger)
+        public static void SetLogger(ILog logger)
         {
             log = logger;
         }
 
-        public abstract bool IsValid(string[] args);
+        //public static BaseValidator(ILog logger)
+        //{
+        //    log = logger;
+        //}
 
-        public bool IsEmptyArr(string[] args)
+        //public static abstract bool IsValid(string[] args);
+
+        public static bool IsEmptyArr(string[] args)
         {
-            log.Debug("Validator.IsEmptyArr: " +
+            log?.Debug("Validator.IsEmptyArr: " +
                 "Checking for a null array of arguments");
 
             if(args == null)
             {
-                log.Info("Validator.IsEmptyArr: False " +
+                log?.Info("Validator.IsEmptyArr: False " +
                     "Array is null");
 
                 return false;
             }
 
-            log.Info("Validator.IsEmptyArr: True " +
+            log?.Info("Validator.IsEmptyArr: True " +
                 "Array is not null");
 
             return true;
         }
 
-        public bool DoesContainNull(string[] args)
+        public static bool DoesNotContainNull(string[] args)
         {
-            log.Debug("Validator.DoesContainNull: " +
+            log?.Debug("Validator.DoesContainNull: " +
                 "Checking for a null item in the array of arguments");
 
             for(int i = 0; i < args.Length; i++)
             {
                 if (args[i] == null)
                 {
-                    log.InfoFormat("Validator.DoesContainNull: False " +
+                    log?.InfoFormat("Validator.DoesContainNull: False " +
                         "Item {0} in the array is null", i);
 
                     return false;
                 }
             }
 
-            log.Info("Validator.DoesContainNull: True " +
+            log?.Info("Validator.DoesContainNull: True " +
                 "All items in the array are not null");
 
             return true;
         }
 
-        public bool IsCorrectLength(string[] args, int expectedLength)
+        public static bool IsCorrectLength(string[] args, int expectedLength)
         {
-            log.DebugFormat("Validator.IsCorrectLength: " +
+            log?.DebugFormat("Validator.IsCorrectLength: " +
                 "Comparing array length with expected length ({0})",
                 expectedLength);
 
             if (args.Length != expectedLength)
             {
-                log.InfoFormat("Validator.IsCorrectLength: False " +
+                log?.InfoFormat("Validator.IsCorrectLength: False " +
                     "The array length ({0}) is not equal to the expected ({1})",
                     args.Length, expectedLength);
 
                 return false;
             }
 
-            log.InfoFormat("Validator.IsCorrectLength: True " +
+            log?.InfoFormat("Validator.IsCorrectLength: True " +
                 "The array length is equal to the expected ({1})",
                 expectedLength);
 
             return true;
         }
 
-        public bool IsCorrectLength(string[] args, int minLength, int maxLength)
+        public static bool IsCorrectLength(string[] args, int minLength, int maxLength)
         {
-            log.DebugFormat("Validator.IsCorrectLength: " +
+            log?.DebugFormat("Validator.IsCorrectLength: " +
                 "Comparing array length with expected range ({0} - {1})",
                 minLength, maxLength);
 
             if (args.Length < minLength)
             {
-                log.InfoFormat("Validator.IsCorrectLength: False " +
+                log?.InfoFormat("Validator.IsCorrectLength: False " +
                     "The array length ({0}) is less than ({1})",
                     args.Length, minLength);
 
@@ -98,138 +103,170 @@ namespace ConsoleLibrary
             }
             if (args.Length > maxLength)
             {
-                log.InfoFormat("Validator.IsCorrectLength: False " +
+                log?.InfoFormat("Validator.IsCorrectLength: False " +
                     "The array length ({0}) is greater than ({1})",
                     args.Length, maxLength);
 
                 return false;
             }
 
-            log.InfoFormat("Validator.IsCorrectLength: True " +
+            log?.InfoFormat("Validator.IsCorrectLength: True " +
                 "The array length is equal to the expected range ({0} - {1})",
                  minLength, maxLength);
 
             return true;
         }
 
-        public bool DoesFileExist(string filePath)
+        public static bool DoesFileExist(string filePath)
         {
-            log.DebugFormat("Validator.DoesFileExist: " +
+            log?.DebugFormat("Validator.DoesFileExist: " +
                 "Checking for existing the file ({0})",
                  filePath);
 
             if (!File.Exists(filePath))
             {
-                log.InfoFormat("Validator.DoesFileExist: False " +
+                log?.InfoFormat("Validator.DoesFileExist: False " +
                     "The file ({0}) does not exist",
                     filePath);
 
                 return false;
             }
 
-            log.InfoFormat("Validator.DoesFileExist: True " +
+            log?.InfoFormat("Validator.DoesFileExist: True " +
                 "The file ({0}) does exist",
                 filePath);
 
             return true;
         }
 
-        public bool IsInt16(string str)
+        public static bool CanParseToInt16(string str, bool onlyPositive)
         {
-            log.DebugFormat("Validator.IsInt16: " +
+            log?.DebugFormat("Validator.CanParseToInt16: " +
                 "Checking for possibility to parse ({0}) to Int16",
                  str);
 
             Int16 temp;
             if (!Int16.TryParse(str, out temp))
             {
-                log.InfoFormat("Validator.IsInt16: False " +
+                log?.InfoFormat("Validator.CanParseToInt16: False " +
                     "The string ({0}) in not a number",
                     str);
 
                 return false;
             }
+            if(onlyPositive && temp < 0)
+            {
+                log?.InfoFormat("Validator.CanParseToInt16: False " +
+                    "The string ({0}) contains a negative number ({1})",
+                    str, temp);
 
-            log.InfoFormat("Validator.IsInt16: True " +
+                return false;
+            }
+
+            log?.InfoFormat("Validator.CanParseToInt16: True " +
                 "The string ({0}) can be parsed to ({1})",
                 str, temp);
 
             return true;
         }
 
-        public bool IsInt32(string str)
+        public static bool CanParseToInt32(string str, bool onlyPositive)
         {
-            log.DebugFormat("Validator.IsInt32: " +
+            log?.DebugFormat("Validator.CanParseToInt32: " +
                 "Checking for possibility to parse ({0}) to Int16",
                  str);
 
             Int32 temp;
             if (!Int32.TryParse(str, out temp))
             {
-                log.InfoFormat("Validator.IsInt32: False " +
+                log?.InfoFormat("Validator.CanParseToInt32: False " +
                     "The string ({0}) in not a number",
                     str);
 
                 return false;
             }
+            if (onlyPositive && temp < 0)
+            {
+                log?.InfoFormat("Validator.CanParseToInt32: False " +
+                    "The string ({0}) contains a negative number ({1})",
+                    str, temp);
 
-            log.InfoFormat("Validator.IsInt32: True " +
+                return false;
+            }
+
+            log?.InfoFormat("Validator.CanParseToInt32: True " +
                 "The string ({0}) can be parsed to ({1})",
                 str, temp);
 
             return true;
         }
 
-        public bool IsInt64(string str)
+        public static bool CanParseToInt64(string str, bool onlyPositive)
         {
-            log.DebugFormat("Validator.IsInt64: " +
+            log?.DebugFormat("Validator.CanParseToInt64: " +
                 "Checking for possibility to parse ({0}) to Int16",
                  str);
 
             Int64 temp;
             if (!Int64.TryParse(str, out temp))
             {
-                log.InfoFormat("Validator.IsInt64: False " +
+                log?.InfoFormat("Validator.CanParseToInt64: False " +
                     "The string ({0}) in not a number",
                     str);
 
                 return false;
             }
+            if (onlyPositive && temp < 0)
+            {
+                log?.InfoFormat("Validator.CanParseToInt64: False " +
+                    "The string ({0}) contains a negative number ({1})",
+                    str, temp);
 
-            log.InfoFormat("Validator.IsInt64: True " +
+                return false;
+            }
+
+            log?.InfoFormat("Validator.CanParseToInt64: True " +
                 "The string ({0}) can be parsed to ({1})",
                 str, temp);
 
             return true;
         }
 
-        public bool IsDouble(string str)
+        public static bool CanParseToDouble(string str, bool onlyPositive)
         {
-            log.DebugFormat("Validator.IsDouble: " +
+            log?.DebugFormat("Validator.CanParseToDouble: " +
                 "Checking for possibility to parse ({0}) to Int16",
                  str);
 
             Double temp;
             if (!Double.TryParse(str, out temp))
             {
-                log.InfoFormat("Validator.IsDouble: False " +
+                log?.InfoFormat("Validator.CanParseToDouble: False " +
                     "The string ({0}) in not a number",
                     str);
 
                 return false;
             }
+            if (onlyPositive && temp < 0)
+            {
+                log?.InfoFormat("Validator.CanParseToDouble: False " +
+                    "The string ({0}) contains a negative number ({1})",
+                    str, temp);
 
-            log.InfoFormat("Validator.IsDouble: True " +
+                return false;
+            }
+
+            log?.InfoFormat("Validator.CanParseToDouble: True " +
                 "The string ({0}) can be parsed to ({1})",
                 str, temp);
 
             return true;
         }
 
-        public bool DoesContainEnum(string str, Type enumType)
+        public static bool DoesContainEnum(string str, Type enumType)
         {
             return DoesContainEnum(str, Enum.GetValues(enumType));
-            //log.DebugFormat("Validator.DoesContainEnum: " +
+            //log?.DebugFormat("Validator.DoesContainEnum: " +
             //    "Checking for a emum item in string ({0}) ",
             //     str);
 
@@ -237,22 +274,22 @@ namespace ConsoleLibrary
             //{
             //    if (str == item.ToString())
             //    {
-            //        log.InfoFormat("Validator.DoesContainEnum: True " +
+            //        log?.InfoFormat("Validator.DoesContainEnum: True " +
             //            "The enum  have ({0})", str);
 
             //        return true;
             //    }
             //}
 
-            //log.InfoFormat("Validator.DoesContainEnum: True " +
+            //log?.InfoFormat("Validator.DoesContainEnum: True " +
             //    "The enum  does not have ({0})", str);
 
             //return false;
         }
 
-        public bool DoesContainEnum(string str, Array enumArr)
+        public static bool DoesContainEnum(string str, Array enumArr)
         {
-            log.DebugFormat("Validator.DoesContainEnum: " +
+            log?.DebugFormat("Validator.DoesContainEnum: " +
                 "Checking for a emum item in string ({0}) ",
                  str);
 
@@ -260,14 +297,14 @@ namespace ConsoleLibrary
             {
                 if(str == item.ToString())
                 {
-                    log.InfoFormat("Validator.DoesContainEnum: True " +
+                    log?.InfoFormat("Validator.DoesContainEnum: True " +
                         "The enum have ({0})", str);
 
                     return true;
                 }
             }
 
-            log.InfoFormat("Validator.DoesContainEnum: True " +
+            log?.InfoFormat("Validator.DoesContainEnum: True " +
                 "The enum  does not have ({0})", str);
 
             return false;

@@ -12,7 +12,9 @@ namespace ET_5_NumberToText
     {
         static void Main(string[] args)
         {
-            ConsoleMenu.ShowConsoleMenu(args);
+            Controller controller = new Controller();
+            controller.ExecuteProgramm(args);
+            //ConsoleMenu.ShowConsoleMenu(args);
         }
     }
 }

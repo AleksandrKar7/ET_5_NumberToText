@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace ET_5_NumberToText.Data
 {
-    public class InputData
+    public class InputDTO
     {
         public enum Algorithms
         {
             English = 1,
         }
-        public static string[] GetAlgorithmsArr()
-        {
-            List<string> result = new List<string>();
+        //public static string[] GetAlgorithmsArr()
+        //{
+        //    List<string> result = new List<string>();
             
-            foreach (InputData.Algorithms item in Enum.GetValues(typeof(InputData.Algorithms)))
-            {
-                result.Add(item.ToString());
-            }
+        //    foreach (InputData.Algorithms item in Enum.GetValues(typeof(InputData.Algorithms)))
+        //    {
+        //        result.Add(item.ToString());
+        //    }
 
-            return result.ToArray();
-        }
+        //    return result.ToArray();
+        //}
 
 
         public long Number { get; set; }

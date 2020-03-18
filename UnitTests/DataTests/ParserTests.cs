@@ -23,7 +23,7 @@ namespace UnitTests.DataTests
         public void Parse_IncorrectCountParams_ArgumentException()
         {
             //arrange
-            string[] args = new string[InputData.CountParams + 1];
+            string[] args = new string[InputDTO.CountParams + 1];
 
             //act
 
@@ -34,7 +34,7 @@ namespace UnitTests.DataTests
         public void Parse_EmptyArr_ArgumentNullException()
         {
             //arrange
-            string[] args = new string[InputData.CountParams];
+            string[] args = new string[InputDTO.CountParams];
 
             //act
 
@@ -46,8 +46,8 @@ namespace UnitTests.DataTests
         public void Parse_IncorrectNumber_FormatException()
         {
             //arrange
-            string[] args = new string[InputData.CountParams]
-                { "dsa", InputData.Algorithms.English.ToString()};
+            string[] args = new string[InputDTO.CountParams]
+                { "dsa", InputDTO.Algorithms.English.ToString()};
 
             //act
 
@@ -58,7 +58,7 @@ namespace UnitTests.DataTests
         public void Parse_IncorrectAlgorithm_ArgumentException()
         {
             //arrange
-            string[] args = new string[InputData.CountParams]
+            string[] args = new string[InputDTO.CountParams]
                 { "123", "dsaasd"};
 
             //act
@@ -72,8 +72,8 @@ namespace UnitTests.DataTests
         public void Parse_AllCorrect_CorrectNumber()
         {
             //arrange
-            string[] args = new string[InputData.CountParams]
-                { "123", InputData.Algorithms.English.ToString()};
+            string[] args = new string[InputDTO.CountParams]
+                { "123", InputDTO.Algorithms.English.ToString()};
             var expected = 123;
 
             //act
@@ -87,9 +87,9 @@ namespace UnitTests.DataTests
         public void Parse_AllCorrect_CorrectAlgorithm()
         {
             //arrange
-            string[] args = new string[InputData.CountParams]
-                { "123", InputData.Algorithms.English.ToString()};
-            var expected = InputData.Algorithms.English;
+            string[] args = new string[InputDTO.CountParams]
+                { "123", InputDTO.Algorithms.English.ToString()};
+            var expected = InputDTO.Algorithms.English;
 
             //act
             var actual = Parser.Parse(args);

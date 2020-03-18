@@ -27,7 +27,7 @@ namespace UnitTests.DataTests
         {
             //arrange
             bool result;
-            string[] args = new string[InputData.CountParams + 1];
+            string[] args = new string[InputDTO.CountParams + 1];
 
             //act
             result = Validator.IsValid(args);
@@ -41,7 +41,7 @@ namespace UnitTests.DataTests
         {
             //arrange
             bool result;
-            string[] args = new string[InputData.CountParams];
+            string[] args = new string[InputDTO.CountParams];
 
             //act
             result = Validator.IsValid(args);
@@ -55,8 +55,8 @@ namespace UnitTests.DataTests
         {
             //arrange
             bool result;
-            string[] args = new string[InputData.CountParams]
-                { "-5", InputData.Algorithms.English.ToString()};
+            string[] args = new string[InputDTO.CountParams]
+                { "-5", InputDTO.Algorithms.English.ToString()};
 
             //act
             result = Validator.IsValid(args);
@@ -70,8 +70,8 @@ namespace UnitTests.DataTests
         {
             //arrange
             bool result;
-            string[] args = new string[InputData.CountParams]
-                { "asd", InputData.Algorithms.English.ToString()};
+            string[] args = new string[InputDTO.CountParams]
+                { "asd", InputDTO.Algorithms.English.ToString()};
 
             //act
             result = Validator.IsValid(args);
@@ -84,7 +84,7 @@ namespace UnitTests.DataTests
         {
             //arrange
             bool result;
-            string[] args = new string[InputData.CountParams]
+            string[] args = new string[InputDTO.CountParams]
                 { "123", "dsa"};
 
             //act
@@ -99,8 +99,8 @@ namespace UnitTests.DataTests
         {
             //arrange
             bool result;
-            string[] args = new string[InputData.CountParams]
-                { "2", InputData.Algorithms.English.ToString()};
+            string[] args = new string[InputDTO.CountParams]
+                { "2", InputDTO.Algorithms.English.ToString()};
 
             //act
             result = Validator.IsValid(args);
