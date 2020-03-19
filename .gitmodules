@@ -1,0 +1,3 @@
+[submodule "ConsoleUILibrary"]
+	path = ConsoleUILibrary
+	url = https://github.com/AleksandrKar7/ConsoleUILibrary.git
