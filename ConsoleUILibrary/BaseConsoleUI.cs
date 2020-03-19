@@ -5,18 +5,25 @@ using log4net;
 
 namespace ConsoleUILibrary
 {
-    public static class BaseConsoleUI
+    public abstract class BaseConsoleUI
     {
-        private static ILog log;
+        private readonly ILog log;
 
-        public static void SetLogger(ILog logger)
+        public BaseConsoleUI(ILog logger)
         {
             log = logger;
         }
 
-        public static int AskMenuItem(string message, string[] menuItems)
+        public abstract string[] AskInputParams();
+
+        public void ShowMessage(string message)
         {
-            log?.DebugFormat("BaseConsoleUI.AskMenuItem: "
+            Console.WriteLine(message);
+        }
+
+        public int AskMenuItem(string message, string[] menuItems)
+        {
+            log.DebugFormat("BaseConsoleUI.AskMenuItem: "
                 + "Asking ({0}) from ({1})" , message
                 , String.Join(", ", menuItems));
 
@@ -36,23 +43,23 @@ namespace ConsoleUILibrary
                 if (!(result >= 1 && result <= menuItems.Length
                     || Int32.TryParse(Console.ReadLine(), out result)))
                 {
-                    log?.Debug("BaseConsoleUI.AskMenuItem: "
+                    log.Debug("BaseConsoleUI.AskMenuItem: "
                         + "Wrong item. Choose again");
 
                     Console.WriteLine("Wrong item. Choose again");
                 }
             }
 
-            log?.InfoFormat("BaseConsoleUI.AskMenuItem: "
+            log.InfoFormat("BaseConsoleUI.AskMenuItem: "
                 + "Was chosen item ({0} - {1})"
                 , result, menuItems[result]);
 
             return result;
         }
 
-        public static int AskMenuItem(string message, Type enumType)
+        public int AskMenuItem(string message, Type enumType)
         {
-            log?.DebugFormat("BaseConsoleUI.AskMenuItem: "
+            log.DebugFormat("BaseConsoleUI.AskMenuItem: "
                 + "Asking ({0}) from ({1})", message
                 , enumType.Name);
 
@@ -71,23 +78,23 @@ namespace ConsoleUILibrary
             {
                 if (!Int32.TryParse(Console.ReadLine(), out result))
                 {
-                    log?.Debug("BaseConsoleUI.AskMenuItem: "
+                    log.Debug("BaseConsoleUI.AskMenuItem: "
                         + "Wrong item. Choose again");
 
                     Console.WriteLine("Wrong item. Choose again");
                 }
             } while (!(values.Contains(result)));
 
-            log?.InfoFormat("BaseConsoleUI.AskMenuItem: "
+            log.InfoFormat("BaseConsoleUI.AskMenuItem: "
                 + "Was chosen item ({0} - {1})"
                 , result, names[result]);
 
             return result;          
         }
 
-        public static bool? AskСonfirmation(string message)
+        public bool? AskСonfirmation(string message)
         {
-            log?.DebugFormat("BaseConsoleUI.AskСonfirmation: "
+            log.DebugFormat("BaseConsoleUI.AskСonfirmation: "
                 + "Asking confirmation for ({0})", message);
 
             string text;
@@ -107,7 +114,7 @@ namespace ConsoleUILibrary
 
             if (text == null)
             {
-                log?.Info("BaseConsoleUI.AskСonfirmation: null "
+                log.Info("BaseConsoleUI.AskСonfirmation: null "
                     + "Text is null, return null");
 
                 return null;
@@ -115,14 +122,14 @@ namespace ConsoleUILibrary
 
             if (trueArray.Contains(text))
             {
-                log?.InfoFormat("BaseConsoleUI.AskСonfirmation: true "
+                log.InfoFormat("BaseConsoleUI.AskСonfirmation: true "
                     + "Was entered ({0})", text);
 
                 return true;
             }
             if (falseArray.Contains(text))
             {
-                log?.InfoFormat("BaseConsoleUI.AskСonfirmation: false "
+                log.InfoFormat("BaseConsoleUI.AskСonfirmation: false "
                     + "Was entered ({0})", text);
 
                 return false;
@@ -131,17 +138,17 @@ namespace ConsoleUILibrary
             return null;
         }
 
-        public static bool AskСonfirmation(string message, string[] trueArray)
+        public bool AskСonfirmation(string message, string[] trueArray)
         {
             if (trueArray == null)
             {
-                log?.Info("BaseConsoleUI.AskСonfirmation: false "
+                log.Info("BaseConsoleUI.AskСonfirmation: false "
                     + "TrueArray is null");
 
                 return false;
             }
 
-            log?.DebugFormat("BaseConsoleUI.AskСonfirmation: "
+            log.DebugFormat("BaseConsoleUI.AskСonfirmation: "
                 + "Asking confirmation for ({0}) "
                 + "Variants for true: ({1})"
                 , message, String.Join(", ", trueArray));
@@ -162,7 +169,7 @@ namespace ConsoleUILibrary
 
             if (text == null)
             {
-                log?.Info("BaseConsoleUI.AskСonfirmation: false "
+                log.Info("BaseConsoleUI.AskСonfirmation: false "
                     + "Text is null, return false");
 
                 return false;
@@ -170,32 +177,32 @@ namespace ConsoleUILibrary
 
             if (trueArray.Contains(text))
             {
-                log?.InfoFormat("BaseConsoleUI.AskСonfirmation: true "
+                log.InfoFormat("BaseConsoleUI.AskСonfirmation: true "
                     + "Was entered ({0})", text);
 
                 return true;
             }
             else
             {
-                log?.InfoFormat("BaseConsoleUI.AskСonfirmation: false "
+                log.InfoFormat("BaseConsoleUI.AskСonfirmation: false "
                     + "Was entered ({0})", text);
 
                 return false;
             }
         }
 
-        public static bool? AskСonfirmation(string message, string[] trueArray, string[] falseArray)
+        public bool? AskСonfirmation(string message, string[] trueArray, string[] falseArray)
         {
             if (trueArray == null)
             {
-                log?.Info("BaseConsoleUI.AskСonfirmation: false "
+                log.Info("BaseConsoleUI.AskСonfirmation: false "
                     + "TrueArray is null");
 
                 return null;
             }
             if (falseArray == null)
             {
-                log?.Info("BaseConsoleUI.AskСonfirmation: false "
+                log.Info("BaseConsoleUI.AskСonfirmation: false "
                     + "FalseArray is null");
 
                 return null;
@@ -215,27 +222,27 @@ namespace ConsoleUILibrary
 
             if (text == null)
             {
-                log?.Info("BaseConsoleUI.AskСonfirmation: false "
+                log.Info("BaseConsoleUI.AskСonfirmation: false "
                     + "Text is null, return false");
 
                 return null;
             }
             if (trueArray.Contains(text))
             {
-                log?.InfoFormat("BaseConsoleUI.AskСonfirmation: true "
+                log.InfoFormat("BaseConsoleUI.AskСonfirmation: true "
                     + "Was entered ({0})", text);
 
                 return true;
             }
             if (falseArray.Contains(text))
             {
-                log?.InfoFormat("BaseConsoleUI.AskСonfirmation: false "
+                log.InfoFormat("BaseConsoleUI.AskСonfirmation: false "
                     + "Was entered ({0})", text);
 
                 return false;
             }
 
-            log?.InfoFormat("BaseConsoleUI.AskСonfirmation: null "
+            log.InfoFormat("BaseConsoleUI.AskСonfirmation: null "
                 + "Nothing was chosen");
             return null;
         }

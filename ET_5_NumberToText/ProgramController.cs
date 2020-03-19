@@ -10,6 +10,15 @@ namespace ET_5_NumberToText
 {
     class ProgramController
     {
+        private readonly Validator validator;
+        private readonly ConsoleUI consoleUI;
+
+        public ProgramController()
+        {
+            validator = new Validator(Logger.Log);
+            consoleUI = new ConsoleUI(Logger.Log);
+        }
+
         public void ExecuteProgramm(string[] args)
         {
             bool isNewTry = false;
@@ -18,20 +27,20 @@ namespace ET_5_NumberToText
             {
                 if (isNewTry)
                 {
-                    args = AskInputParams();
+                    args = consoleUI.AskInputParams();
                     isNewTry = false;
                 }
 
-                if (!IsValid(args))
+                if (!validator.IsValid(args))
                 {
                     Console.WriteLine("Your data is not valid");
-                    if (!BaseConsoleUI.AskСonfirmation("Do you want to retype them?",
+                    if (!consoleUI.AskСonfirmation("Do you want to retype them?",
                         new string[] { "YES", "Y" }))
                     {
                         break;
                     }
 
-                    args = AskInputParams();
+                    args = consoleUI.AskInputParams();
 
                     continue;
                 }
@@ -63,7 +72,7 @@ namespace ET_5_NumberToText
                         "The number is too big.");
                 }
 
-                if (BaseConsoleUI.AskСonfirmation("Do you want to continue?",
+                if (consoleUI.AskСonfirmation("Do you want to continue?",
                     new string[] { "YES", "Y" }))
                 {
                     isNewTry = true;
@@ -73,31 +82,6 @@ namespace ET_5_NumberToText
                     break;
                 }
             } while (true);
-        }
-
-        private bool IsValid(string[] args)
-        {
-            return BaseValidator.IsEmptyArr(args)
-                    && BaseValidator.IsCorrectLength(args
-                        , InputDTO.CountParams)
-                    && BaseValidator.DoesNotContainNull(args)
-                    && BaseValidator.CanParseToInt64(args[0], false)
-                    && BaseValidator.DoesContainEnum(args[1]
-                        , typeof(InputDTO.Algorithms));
-        }
-
-        private string[] AskInputParams()
-        {
-            string[] result = new string[InputDTO.CountParams];
-
-            Console.WriteLine("Enter a number");
-            result[0] = Console.ReadLine();
-
-            result[1] = ((InputDTO.Algorithms)
-                BaseConsoleUI.AskMenuItem("Choose language"
-                , typeof(InputDTO.Algorithms))).ToString();
-
-            return result;
         }
     }
 }

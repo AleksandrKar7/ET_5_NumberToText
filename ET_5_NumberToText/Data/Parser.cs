@@ -8,18 +8,18 @@ namespace ET_5_NumberToText.Data
     {
         public static InputDTO Parse(string[] args)
         {
-            if (BaseValidator.IsEmptyArr(args))
+            if (args == null)
             {
                 throw new NullReferenceException("Array of parameters is null"); //81
             }
-            if (BaseValidator.IsCorrectLength(args, InputDTO.CountParams))
+            if (args.Length != InputDTO.CountParams)
             {
                 throw new ArgumentException(
                     "The number of parameters is incorrect. " +
                     "There must be: " + InputDTO.CountParams);
             }
 
-            return new InputDTO
+            return new InputDTO()
             {
                 Number = Int64.Parse(args[0]),
                 Algorithm = (InputDTO.Algorithms)

@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleUI.cs" />
+    <Compile Include="Data\Validator.cs" />
     <Compile Include="ProgramController.cs" />
     <Compile Include="Data\InputDTO.cs" />
     <Compile Include="Data\Parser.cs" />

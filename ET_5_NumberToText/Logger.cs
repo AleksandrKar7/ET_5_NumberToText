@@ -12,7 +12,7 @@ namespace ET_5_NumberToText
             get { return log; }
         }
 
-        public static void InitLogger()
+        static Logger()
         {
             XmlConfigurator.Configure();
         }
