@@ -1,3 +1,6 @@
 [submodule "ConsoleUILibrary"]
 	path = ConsoleUILibrary
 	url = https://github.com/AleksandrKar7/ConsoleUILibrary.git
+[submodule "ValidatorLibrary"]
+	path = ValidatorLibrary
+	url = https://github.com/AleksandrKar7/ValidatorLibrary.git
