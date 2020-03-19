@@ -11,7 +11,7 @@ namespace ConsoleUILibrary
     {
         private static ILog log;
 
-        public static void SegLogger(ILog logger)
+        public static void SetLogger(ILog logger)
         {
             log = logger;
         }

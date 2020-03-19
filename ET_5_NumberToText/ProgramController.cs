@@ -11,17 +11,8 @@ using ValidatorLibrary;
 
 namespace ET_5_NumberToText
 {
-    class Controller
+    class ProgramController
     {
-        //private readonly Validator validator;
-        //private readonly ConsoleMenu consoleMenu;
-
-        //public Controller()
-        //{
-        //    //validator = new Validator(Logger.Log);
-        //    //consoleMenu = new ConsoleMenu(Logger.Log);
-        //}
-
         public void ExecuteProgramm(string[] args)
         {
             bool isNewTry = false;
@@ -48,10 +39,13 @@ namespace ET_5_NumberToText
                     continue;
                 }
 
-                InputDTO inputData = Parser.Parse(args);
+                //InputDTO inputData = Parser.Parse(args);
+                InputDTO inputDTO = new InputDTO();
+                inputDTO.Parse(args);
+
                 NumberToTextConverter converter;
 
-                switch (inputData.Algorithm)
+                switch (inputDTO.Algorithm)
                 {
                     case InputDTO.Algorithms.English:
                         converter = new EnglishNumberToTextConverter();
@@ -61,7 +55,7 @@ namespace ET_5_NumberToText
                         break;
                 }
 
-                Number number = new Number(inputData.Number, converter);
+                Number number = new Number(inputDTO.Number, converter);
 
                 if (number.CanConvertToText())
                 {

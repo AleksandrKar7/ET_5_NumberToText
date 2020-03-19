@@ -12,18 +12,6 @@ namespace ET_5_NumberToText.Data
         {
             English = 1,
         }
-        //public static string[] GetAlgorithmsArr()
-        //{
-        //    List<string> result = new List<string>();
-            
-        //    foreach (InputData.Algorithms item in Enum.GetValues(typeof(InputData.Algorithms)))
-        //    {
-        //        result.Add(item.ToString());
-        //    }
-
-        //    return result.ToArray();
-        //}
-
 
         public long Number { get; set; }
         public Algorithms Algorithm { get; set; }

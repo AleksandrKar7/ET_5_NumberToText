@@ -266,25 +266,6 @@ namespace ValidatorLibrary
         public static bool DoesContainEnum(string str, Type enumType)
         {
             return DoesContainEnum(str, Enum.GetValues(enumType));
-            //log?.DebugFormat("Validator.DoesContainEnum: " +
-            //    "Checking for a emum item in string ({0}) ",
-            //     str);
-
-            //foreach (var item in Enum.GetValues(enumType))
-            //{
-            //    if (str == item.ToString())
-            //    {
-            //        log?.InfoFormat("Validator.DoesContainEnum: True " +
-            //            "The enum  have ({0})", str);
-
-            //        return true;
-            //    }
-            //}
-
-            //log?.InfoFormat("Validator.DoesContainEnum: True " +
-            //    "The enum  does not have ({0})", str);
-
-            //return false;
         }
 
         public static bool DoesContainEnum(string str, Array enumArr)

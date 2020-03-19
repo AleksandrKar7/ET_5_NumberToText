@@ -46,11 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleMenu.cs" />
-    <Compile Include="Controller.cs" />
-    <Compile Include="Data\InputData.cs" />
+    <Compile Include="ProgramController.cs" />
+    <Compile Include="Data\InputDTO.cs" />
     <Compile Include="Data\Parser.cs" />
-    <Compile Include="Data\Validator.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Logics\Number.cs" />
     <Compile Include="Program.cs" />

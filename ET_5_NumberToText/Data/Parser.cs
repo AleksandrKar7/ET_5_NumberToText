@@ -16,35 +16,35 @@ namespace ET_5_NumberToText.Data
             }
             if (args.Length != InputDTO.CountParams)
             {
-                
                 throw new ArgumentException(
                     "The number of parameters is incorrect. " +
                     "There must be: " + InputDTO.CountParams);
             }
-            //if(GetMode(args[1]) == 0)
-            //{
-            //    throw new ArgumentException("Algorithm not found");
-            //}
 
             return new InputDTO
             {
                 Number = Int64.Parse(args[0]),
                 Algorithm = (InputDTO.Algorithms)
                 Enum.Parse(typeof(InputDTO.Algorithms), args[1])
-        };
+            };
         }
 
-        //private static InputData.Algorithms GetMode(string str)
-        //{
-        //    foreach (InputData.Algorithms item in Enum.GetValues(typeof(InputData.Algorithms)))
-        //    {
-        //        if (str == item.ToString())
-        //        {
-        //            return item;
-        //        }
-        //    }
-            
-        //    return 0;
-        //}
+        public static void Parse(this InputDTO input, string[] args)
+        {
+            if (args == null)
+            {
+                throw new NullReferenceException("Array of parameters is null"); //81
+            }
+            if (args.Length != InputDTO.CountParams)
+            {
+                throw new ArgumentException(
+                    "The number of parameters is incorrect. " +
+                    "There must be: " + InputDTO.CountParams);
+            }
+
+            input.Number = Int64.Parse(args[0]);
+            input.Algorithm = (InputDTO.Algorithms)
+                Enum.Parse(typeof(InputDTO.Algorithms), args[1]);
+        }
     }
 }
