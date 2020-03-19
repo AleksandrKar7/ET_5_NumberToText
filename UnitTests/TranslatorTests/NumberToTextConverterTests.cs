@@ -1,7 +1,4 @@
 ﻿using ET_5_NumberToText.Logics.Translator;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace UnitTests.TranslatorTests

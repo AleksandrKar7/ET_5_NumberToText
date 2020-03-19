@@ -1,12 +1,9 @@
-﻿using ConsoleUILibrary;
+﻿using System;
+
+using ConsoleUILibrary;
 using ET_5_NumberToText.Data;
 using ET_5_NumberToText.Logics;
 using ET_5_NumberToText.Logics.Translator;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ValidatorLibrary;
 
 namespace ET_5_NumberToText
@@ -39,9 +36,7 @@ namespace ET_5_NumberToText
                     continue;
                 }
 
-                //InputDTO inputData = Parser.Parse(args);
-                InputDTO inputDTO = new InputDTO();
-                inputDTO.Parse(args);
+                InputDTO inputDTO = Parser.Parse(args);
 
                 NumberToTextConverter converter;
 

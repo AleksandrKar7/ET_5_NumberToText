@@ -1,10 +1,7 @@
-﻿using log4net;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using log4net;
 
 namespace ValidatorLibrary
 {
@@ -16,13 +13,6 @@ namespace ValidatorLibrary
         {
             log = logger;
         }
-
-        //public static BaseValidator(ILog logger)
-        //{
-        //    log = logger;
-        //}
-
-        //public static abstract bool IsValid(string[] args);
 
         public static bool IsEmptyArr(string[] args)
         {

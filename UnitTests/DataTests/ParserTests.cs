@@ -1,7 +1,6 @@
-﻿using ET_5_NumberToText.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+
+using ET_5_NumberToText.Data;
 using Xunit;
 
 namespace UnitTests.DataTests
