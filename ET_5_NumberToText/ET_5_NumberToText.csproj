@@ -62,13 +62,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleLibrary\ValidatorLibrary.csproj">
-      <Project>{753cc401-99f1-40ab-924a-b08623fa3ff7}</Project>
-      <Name>ValidatorLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ConsoleUILibrary\ConsoleUILibrary.csproj">
       <Project>{0f1e930c-0eb4-43bf-b316-edbed82aadb8}</Project>
       <Name>ConsoleUILibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ValidatorLibrary\ValidatorLibrary.csproj">
+      <Project>{753cc401-99f1-40ab-924a-b08623fa3ff7}</Project>
+      <Name>ValidatorLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
